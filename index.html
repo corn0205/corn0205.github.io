@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Text2Reward: Reward Shaping with Language Models for Reinforcement Learning">
+  <meta name="keywords" content="Robot Learning, Large Langauge Model, Code Generation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Text2Reward: Reward Shaping with Language Models for Reinforcement Learning</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/franka.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://www.xlang.ai/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://yale-lily.github.io/spider">
+              Spider
+            </a>
+            <a class="navbar-item" href="https://github.com/HKUNLP/UnifiedSKG">
+              UnifiedSKG
+            </a>
+            <a class="navbar-item" href="https://github.com/Yushi-Hu/IC-DST">
+              IC-DST
+            </a>
+            <a class="navbar-item" href="https://github.com/HKUNLP/icl-selective-annotation">
+              Selective Annotation
+            </a>
+            <a class="navbar-item" href="https://lm-code-binder.github.io/">
+              Binder
+            </a>
+            <a class="navbar-item" href="https://ds1000-code-gen.github.io/">
+              DS-1000
+            </a>
+            <a class="navbar-item" href="https://instructor-embedding.github.io/">
+              Instructor
+            </a>
+            <a class="navbar-item" href="https://github.com/xlang-ai/OpenAgents">
+              OpenAgents
+            </a>
+            <a class="navbar-item" href="https://github.com/OpenLemur/lemur">
+              Lemur-70B
+            </a>
+            <a class="navbar-item" href="https://arks-codegen.github.io/">
+              ARKS
+            </a>
+            <a class="navbar-item" href="https://os-world.github.io/">
+              OSWorld
+            </a>
+            <a class="navbar-item" href="https://brightbenchmark.github.io/">
+              BRIGHT
+            </a>
+            <a class="navbar-item" href="https://spider2-v.github.io/">
+              Spider2-V
+            </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav> -->
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Divide-Then-Aggregate: An Efficient Tool Learning Method via Parallel Tool Invocation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=_GyR7gQAAAAJ&hl=zh-CN">Dongsheng Zhu</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=0IhAClYAAAAJ&hl=zh-CN">Weixian Shi</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://shizhl.github.io/">Zhengliang Shi</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://renzhaochun.github.io/">Zhaochun Ren</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://wangshuaiqiang.net/">Shuaiqiang Wang</a><sup>1</sup>,
+            </span>
+            <br>
+            <span class="author-block">
+              <a href="https://www.yindawei.com/">Dawei Yin</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://yanlingyong.net/">Lingyong Yan</a><sup>1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Baidu. Inc., Beijing, China,</span>
+            <span class="author-block"><sup>2</sup>Shandong University, Qingdao, China</span>
+            <span class="author-block"><sup>3</sup>Leiden University, Leiden, The Netherlands</span>
+          </div>
+          
+          <br>
+          <!-- <div class="hero-body"> -->
+            <h2 class="subtitle has-text-centered">
+            <strong>Teaching LLM agent to use tools in a <font color="red">parallel</font> manner</strong>
+            </h2>
+          <!-- </div> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="xxx"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/Zhudongsheng75/Divide-Then-Aggregate"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- dataset link -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/dongsheng/DTA-Tool"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Dataset</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="subtitle has-text-centered">
+        An overview of <span class="dnerf">DTA</span> of two stages: <br>
+        <em><font color="#228B22">Training Process:</font></em>  we transform traditional linear and tree-based tool search paths into Directed Acyclic Graph (DAG) structures, enabling the parallelization of tools and training open-source models on this dataset. 
+        <em><font color="#228B22">Inference Process:</font></em>  We propose the process/Thread-based inference framework, which allows the parallel tool-callings.
+        <!-- <em><font color="#228B22">Expert</font> Abstraction</em> provides an abstraction of the environment as a hierarchy of Pythonic classes. <br> -->
+        <!-- <em><font color="#4169E1">User</font> Instruction</em> describes the goal to be achieved in natural language. -->
+        <!-- <em><font color="#4169E1">User</font> Feedback</em> allows users to summarize the failure mode or their preferences, which are used to improve the reward code. -->
+      </h2>
+      <img src="static/images/main.png"> <!-- To .gif format-->
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h3 class="title is-3">Abstract</h3>
+        <div class="content has-text-justified">
+          <p>
+            Although current Large Language Models (LLMs) exhibit impressive capabilities, performing complex real-world tasks still requires tool learning. Mainstream methods, such as CoT/ReAct, rely on step-by-step tool invocation to interact with external environments, but they are limited in scope and lack adequate task-planning capability. To address these limitations, other studies introduce the first Search-based Decision Tree (DFSDT), which still suffers from the high computational cost overhead. In this paper, we introduce a novel parallel tool invocation paradigm, DTA-Llama (Divide-Then-Aggregate Llama).
+First, we transform traditional linear and tree-based tool search paths into Directed Acyclic Graph (DAG) structures, generating a high-quality parallel tool invocation dataset.
+The DTA-Llama is then trained on the dataset to learn to iteratively divide the current task into several parallel tool invocation sub-tasks and aggregate the invocation results to decide the next actions.
+Furthermore, we introduce an efficient inference framework inspired by the Process/Thread mechanism when applying the DTA-Llama to practical tasks.
+Experimental results show that our approach substantially enhances task performance while reducing computational overhead and latency. We also achieve comparable to GPT-3.5's official parallel function-calling method.
+          </p>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!--/ Abstract. -->
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-three-fifths">
+        <h3 class="title is-3">Video</h3>
+        <p>Coming soon!</p>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Results. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h3 class="title is-3">Experiment Results</h3>
+        <div class="content has-text-justified">
+          <p>
+            We conduct systematic experiments on StableToolBench, the most commonly used benchmark in the tool learning tasks.
+          </p>
+          <h4 class="title is-4" align="left">Solvable Pass Rate (SoPR)</h4>
+          <p> 
+            <strong><span class="dnerf">SoPR</span> </strong>measures the success rate of LLMs in solving tasks.
+          </p>
+
+          <h4 class="title is-4" align="left">Solvable win Rate (SoWR)</h4>
+          <p> 
+            <strong><span class="dnerf">SoWR</span> </strong> compares the quality of results against a GPT-3.5 (ReAct) baseline.
+          </p>
+          <img src="static/images/experiment.png">
+          <p></p>
+
+          <h4 class="title is-4" align="left">Evaluation case1</h4>
+          <p> 
+            <p><font color="red">Success ✅</font></p>
+              <video id="zeroshot-video" autoplay controls muted loop playsinline height="200%">
+                <source src="./static/videos/case1.mp4"
+                        type="video/mp4">
+              </video>  
+          </p>
+
+          <h4 class="title is-4" align="left">Evaluation case2</h4>
+          <p> 
+            <p><font color="red">Success ✅</font></p>
+              <video id="zeroshot-video" autoplay controls muted loop playsinline height="200%">
+                <source src="./static/videos/case2.mp4"
+                        type="video/mp4">
+              </video>  
+          </p>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Results. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h3 class="title is-3">Efficiency Analysis</h3>
+        <div class="content has-text-justified">
+          <p>
+            <strong><span class="dnerf">DTA</span> can achieve better performance while saving your a lot of tokens (e.g., 5 times less).</strong> 
+            <!-- We show one case in which "control the Ant to lie down" itself has ambiguity in terms of the orientation of the Ant, as shown in Figure 6.  -->
+            <!-- After observing the training result of this instruction, the user can give the feedback in natural language, e.g., "the Ant's torso should be top down, not bottom up".  -->
+            <!-- Then <span class="dnerf">Text2Reward</span> will regenerate the reward code and train a new policy, which successfully caters to the user's intent. -->
+          </p>
+          <p></p>
+          <img src="static/images/token.png">
+          <p></p>
+          
+
+          <p>
+            <strong><span class="dnerf">DTA</span> can speed the inference time when manipulaing tools.</strong>  
+            <!-- Sometimes single-turn generation can not generate good enough reward functions to finish the task.  -->
+            <!-- In these cases, <span class="dnerf">Text2Reward</span> asks for human feedback on the failure mode and tries to improve the dense reward.  -->
+            <!-- In Figure 7, we demonstrate this on the Stack Cube task, where zero-shot and few-shot generation in a single turn fails to solve the task stably.  -->
+            <!-- For few-shot generation, we observed that interactive code generation with human feedback can improve the success rate from zero to one. -->
+          </p>
+          <p></p>
+          <img src="static/images/speed.png">
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Examples. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h3 class="title is-3"><span class="dnerf">DTA </span>Evaluation Case</h3>
+        <br>
+        <object data="static/images/case.pdf#toolbar=0&navpanes=0&scrollbar=0" width="100%" height="1020px" type="application/pdf"></object>
+      </div>
+    </div>
+  </div>
+    <!--/ Examples. -->
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Acknowledgement</h2>
+    <!-- <p>We thank ... for their contributions to this project.</p> -->
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <!-- <pre><code>@article{
+    xie2024textreward,
+    title={Text2Reward: Reward Shaping with Language Models for Reinforcement Learning},
+    author={Tianbao Xie and Siheng Zhao and Chen Henry Wu and Yitao Liu and Qian Luo and Victor Zhong and Yanchao Yang and Tao Yu},
+    booktitle={The Twelfth International Conference on Learning Representations},
+    year={2024},
+    url={https://openreview.net/forum?id=tUM39YTRxH}
+}</code></pre> -->
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://www.xlang.ai/">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://www.xlang.ai/" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
