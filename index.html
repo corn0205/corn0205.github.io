@@ -63,10 +63,10 @@
             </span>
             <br>
             <span class="author-block">
-              <a href="https://www.yindawei.com/">Dawei Yin</a><sup>1</sup>,
+              <a href="https://yanlingyong.net/">Lingyong Yan</a><sup>1</sup>,
             </span>
             <span class="author-block">
-              <a href="https://yanlingyong.net/">Lingyong Yan</a><sup>1</sup>,
+              <a href="https://www.yindawei.com/">Dawei Yin</a><sup>1</sup>,
             </span>
           </div>
 
@@ -108,21 +108,21 @@
               <span class="link-block">
                 <a href="https://huggingface.co/datasets/dongsheng/DTA-Tool"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
+                  <span class="icon" style="display: flex; align-items: center;">
+                    <img src="./static/images/huggingface.svg" alt="Hugging Face" style="width:1.2em; height:1.2em; vertical-align:middle;">
                   </span>
                   <span>Dataset</span>
-                  </a>
+                </a>
               </span>
               <!-- checkpoint link -->
               <span class="link-block">
                 <a href="https://huggingface.co/collections/dongsheng/dta-llama-677e753f27b54d84e82a89a3"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
+                  <span class="icon" style="display: flex; align-items: center;">
+                    <img src="./static/images/huggingface.svg" alt="Hugging Face" style="width:1.2em; height:1.2em; vertical-align:middle;">
                   </span>
                   <span>Checkpoint</span>
-                  </a>
+                </a>
               </span>
             </div>
 
@@ -139,13 +139,12 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <h2 class="subtitle has-text-centered">
-        An overview of <span class="dnerf">DTA</span> of two stages: <br>
+        An overview of <span class="dnerf">DTA</span> of two stages:
+      </h2>
+      <p class="has-text-justified">
         <em><font color="#228B22">Training Process:</font></em>  we transform traditional linear and tree-based tool search paths into Directed Acyclic Graph (DAG) structures, enabling the parallelization of tools and training open-source models on this dataset. 
         <em><font color="#228B22">Inference Process:</font></em>  We propose the process/Thread-based inference framework, which allows the parallel tool-callings.
-        <!-- <em><font color="#228B22">Expert</font> Abstraction</em> provides an abstraction of the environment as a hierarchy of Pythonic classes. <br> -->
-        <!-- <em><font color="#4169E1">User</font> Instruction</em> describes the goal to be achieved in natural language. -->
-        <!-- <em><font color="#4169E1">User</font> Feedback</em> allows users to summarize the failure mode or their preferences, which are used to improve the reward code. -->
-      </h2>
+      </p>
       <img src="static/images/main.png"> <!-- To .gif format-->
     </div>
   </div>
